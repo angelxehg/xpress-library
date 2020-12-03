@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService, AuthServiceMock } from 'src/app/auth/auth.service';
-import { BooksService, BooksServiceMock } from 'src/app/books/books.service';
-import { AuthorsService, AuthorsServiceMock } from '../authors.service';
+import { AuthService, AuthServiceMock } from '../../services/auth.service';
+import { BooksService, BooksServiceMock } from '../../services/books.service';
+import { AuthorsService, AuthorsServiceMock } from '../../services/authors.service';
 
 import { AuthorDetailsComponent } from './author-details.component';
 

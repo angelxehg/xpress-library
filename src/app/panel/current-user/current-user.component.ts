@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/users/users.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from '../../services/users.service';
 
 @Component({
   selector: 'app-current-user',

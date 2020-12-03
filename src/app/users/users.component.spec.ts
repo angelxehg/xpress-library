@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService, AuthServiceMock } from '../auth/auth.service';
+import { AuthService, AuthServiceMock } from '../services/auth.service';
 
 import { UsersComponent } from './users.component';
-import { UsersService, UsersServiceMock } from './users.service';
+import { UsersService, UsersServiceMock } from '../services/users.service';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;

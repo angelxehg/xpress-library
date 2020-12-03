@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { faEdit, faSave, faTimes, faTrash, faSync, faLink, faUnlink } from '@fortawesome/free-solid-svg-icons';
-import { Book, BooksService } from '../books.service';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Author, AuthorsService } from 'src/app/authors/authors.service';
+import { Book, BooksService } from '../../services/books.service';
+import { AuthService } from '../../services/auth.service';
+import { Author, AuthorsService } from '../../services/authors.service';
 
 interface ProcessStatus {
   status: string;

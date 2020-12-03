@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { User } from '../users/users.service';
+import { User } from './users.service';
 
 const jwt = new JwtHelperService();
 

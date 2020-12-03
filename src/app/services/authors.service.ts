@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Book } from '../books/books.service';
+import { Book } from './books.service';
 
 export interface Author {
   _id: string;

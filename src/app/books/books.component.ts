@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BooksService } from './books.service';
+import { BooksService } from '../services/books.service';
 import { faSync, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-books',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, Credential } from '../auth.service';
+import { AuthService, Credential } from '../../services/auth.service';
 
 interface ProcessStatus {
   status: string;

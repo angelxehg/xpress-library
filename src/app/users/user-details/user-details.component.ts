@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEdit, faSave, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
-import { User, UsersService } from '../users.service';
+import { AuthService } from '../../services/auth.service';
+import { User, UsersService } from '../../services/users.service';
 
 interface ProcessStatus {
   status: string;
