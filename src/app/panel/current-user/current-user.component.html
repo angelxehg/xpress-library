@@ -1,0 +1,10 @@
+<div class="card" *ngIf="user">
+  <div class="card-body">
+    <h5 class="card-title">Datos del usuario</h5>
+    <img [src]="user.image" class="rounded mb-2" alt="...">
+    <p class="card-text">Nombre: {{ user.name }}</p>
+    <p class="card-text">Correo: {{ user.email }}</p>
+    <p class="card-text">Roles: {{ user.role }}</p>
+    <button class="btn btn-danger" (click)="logout()">Salir</button>
+  </div>
+</div>

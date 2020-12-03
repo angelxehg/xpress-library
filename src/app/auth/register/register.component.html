@@ -1,0 +1,24 @@
+<app-central-card-layout>
+  <h5 class="card-title">Registrarme</h5>
+  <div class="mb-3">
+    <label for="inputName" class="form-label">Nombre</label>
+    <input [(ngModel)]="credential.name" type="text" class="form-control" id="inputName">
+  </div>
+  <div class="mb-3">
+    <label for="inputEmail" class="form-label">Correo</label>
+    <input [(ngModel)]="credential.email" type="email" class="form-control" id="inputEmail"
+      aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="inputPassword" class="form-label">Contraseña</label>
+    <input [(ngModel)]="credential.password" type="password" class="form-control" id="inputPassword">
+  </div>
+  <div class="mb-3">
+    <label for="inputPasswordConfirmation" class="form-label">Confirmar contraseña</label>
+    <input [(ngModel)]="credential.passwordConfirmation" type="password" class="form-control"
+      id="inputPasswordConfirmation">
+  </div>
+  <p *ngIf="statusMsg" class="mess" [class]="statusText()">{{ statusMsg.message }}</p>
+  <button class="btn btn-success" (click)="register()">Registrarme</button>
+  <a routerLink="/auth/login" class="mt-2">Inicio de sesión</a>
+</app-central-card-layout>

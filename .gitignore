@@ -2,6 +2,8 @@
 
 # compiled output
 /dist
+/www
+!/www/.gitkeep
 /tmp
 /out-tsc
 # Only exists if Bazel was run

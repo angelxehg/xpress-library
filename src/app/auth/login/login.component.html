@@ -1,0 +1,15 @@
+<app-central-card-layout>
+  <h5 class="card-title">Iniciar sesión</h5>
+  <div class="mb-3">
+    <label for="inputEmail" class="form-label">Correo</label>
+    <input [(ngModel)]="credential.email" type="email" class="form-control" id="inputEmail"
+      aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="inputPassword" class="form-label">Contraseña</label>
+    <input [(ngModel)]="credential.password" type="password" class="form-control" id="inputPassword">
+  </div>
+  <p *ngIf="statusMsg" class="mess" [class]="statusText()">{{ statusMsg.message }}</p>
+  <button class="btn btn-success" (click)="login()">Iniciar sesión</button>
+  <a routerLink="/auth/register" class="mt-2">Registro</a>
+</app-central-card-layout>

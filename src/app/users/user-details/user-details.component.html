@@ -1,0 +1,48 @@
+<div class="card" *ngIf="user">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col">
+        <h5 class="card-title m-0">Datos del usuario</h5>
+      </div>
+      <div class="col-auto" *ngIf="admin()">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-primary" (click)="editMode = true">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </button>
+          <button *ngIf="editMode" type="button" class="btn btn-sm btn-success" (click)="save()">
+            <fa-icon [icon]="faSave"></fa-icon>
+          </button>
+          <button *ngIf="editMode && !newMode" type="button" class="btn btn-sm btn-warning" (click)="editMode = false">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+          <button *ngIf="editMode && !newMode && user.role !== 'ROLE_ADMIN'" type="button" class="btn btn-sm btn-danger"
+            (click)="delete()">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <p *ngIf="statusMsg" class="mess" [class]="statusText()">{{ statusMsg.message }}</p>
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Nombre</label>
+      <input [(ngModel)]="user.name" [disabled]="!editMode" type="text" class="form-control" id="inputName">
+    </div>
+    <div class="mb-3">
+      <label for="inputEmail" class="form-label">Correo</label>
+      <input [(ngModel)]="user.email" [disabled]="!editMode" type="email" class="form-control" id="inputEmail">
+    </div>
+    <div class="mb-3">
+      <label for="inputImage" class="form-label">Imagen</label>
+      <input [(ngModel)]="user.image" [disabled]="!editMode" type="url" class="form-control" id="inputImage">
+    </div>
+    <div class="mb-3" *ngIf="editMode">
+      <label for="inputPassword" class="form-label">Contraseña</label>
+      <input [(ngModel)]="user.password" type="password" class="form-control" id="inputPassword">
+    </div>
+    <div class="mb-3" *ngIf="newMode || (editMode && user.password)">
+      <label for="inputPasswordConfirmation" class="form-label">Confirmar contraseña</label>
+      <input [(ngModel)]="user.passwordConfirmation" type="password" class="form-control"
+        id="inputPasswordConfirmation">
+    </div>
+  </div>
+</div>

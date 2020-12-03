@@ -1,0 +1,13 @@
+.fill-sm {
+  width: 100%;
+}
+
+@media (min-width: 450px) { 
+  .fill-sm {
+    max-width: 400px;
+  }
+}
+
+.card {
+  text-align: start;
+}
