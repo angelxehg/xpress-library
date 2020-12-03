@@ -1,4 +1,4 @@
-<div class="card" *ngIf="book">
+<div class="card text-white bg-dark" *ngIf="book">
   <div class="card-body">
     <div class="row align-items-center">
       <div class="col">
@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div class="card mt-2" *ngIf="authors && !newMode && !editMode">
+<div class="card text-white bg-dark mt-2" *ngIf="authors && !newMode && !editMode">
   <div class="card-body">
     <div class="row align-items-center">
       <div class="col">
@@ -58,7 +58,7 @@
       </div>
     </div>
     <ul class="list-group mt-2">
-      <li *ngFor="let author of authors" class="list-group-item">
+      <li *ngFor="let author of authors" class="list-group-item list-group-item-dark">
         <div class="row align-items-center">
           <div class="col">
             <a [routerLink]="'/authors/' + author._id">{{ author.name }}</a>
