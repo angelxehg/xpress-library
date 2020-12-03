@@ -2,7 +2,7 @@
 
 Autores y Libros: Aplicación Web con Express, Angular y MongoDB
 
-[Documentación API](./docs/api.md)
+[Documentación API](https://angelxehg.github.io/xpress-library-api/)
 
 ## Instalación
 
