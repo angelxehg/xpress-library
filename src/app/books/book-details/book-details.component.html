@@ -6,7 +6,10 @@
       </div>
       <div class="col-auto" *ngIf="admin()">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-primary" (click)="editMode = true">
+          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-primary" (click)="sync()">
+            <fa-icon [icon]="faSync"></fa-icon>
+          </button>
+          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-secondary" (click)="editMode = true">
             <fa-icon [icon]="faEdit"></fa-icon>
           </button>
           <button *ngIf="editMode" type="button" class="btn btn-sm btn-success" (click)="save()">
@@ -21,10 +24,52 @@
         </div>
       </div>
     </div>
+    <p *ngIf="statusMsg" class="mess" [class]="statusText()">{{ statusMsg.message }}</p>
     <div class="mb-3">
-      <p *ngIf="statusMsg" class="mess" [class]="statusText()">{{ statusMsg.message }}</p>
       <label for="inputTitle" class="form-label">Título</label>
       <input [(ngModel)]="book.title" [disabled]="!editMode" type="text" class="form-control" id="inputTitle">
     </div>
+  </div>
+</div>
+
+<div class="card mt-2" *ngIf="authors && !newMode && !editMode">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col">
+        <h5 class="card-title m-0">Autores del libro</h5>
+      </div>
+      <div class="col-auto" *ngIf="admin()">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-primary" (click)="sync()">
+            <fa-icon [icon]="faSync"></fa-icon>
+          </button>
+          <div class="dropdown">
+            <button class="ml-2 btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-expanded="false">
+              <fa-icon [icon]="faLink"></fa-icon>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <li *ngFor="let author of availableAuthors">
+                <button class="dropdown-item" (click)="linkAuthor(author._id)">{{ author.name }}</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="list-group mt-2">
+      <li *ngFor="let author of authors" class="list-group-item">
+        <div class="row align-items-center">
+          <div class="col">
+            <a [routerLink]="'/app/authors/' + author._id">{{ author.name }}</a>
+          </div>
+          <div class="col-auto pl-0 pr-1" *ngIf="admin()">
+            <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeAuthor(author._id)">
+              <fa-icon [icon]="faUnlink"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
