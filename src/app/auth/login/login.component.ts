@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.credential).then(user => {
       this.statusMsg = { status: 'success', message: 'Inicio de sesión correcto' };
       setTimeout((router: Router) => {
-        router.navigateByUrl('/app');
+        router.navigateByUrl('/');
       }, 1000, this.router);
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };

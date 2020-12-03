@@ -65,7 +65,7 @@
       <li *ngFor="let book of books" class="list-group-item">
         <div class="row align-items-center">
           <div class="col">
-            <a [routerLink]="'/app/books/' + book._id">{{ book.title }}</a>
+            <a [routerLink]="'/books/' + book._id">{{ book.title }}</a>
           </div>
           <div class="col-auto pl-0 pr-1" *ngIf="admin()">
             <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeBook(book._id)">

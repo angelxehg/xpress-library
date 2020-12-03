@@ -88,7 +88,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   save(): void {
     if (this.newMode) {
       this.service.create(this.book).then(book => {
-        this.service.index().then(i => this.router.navigateByUrl(`/app/books/${book._id}`));
+        this.service.index().then(i => this.router.navigateByUrl(`/books/${book._id}`));
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
       });
@@ -105,7 +105,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
 
   delete(): void {
     this.service.delete(this.book).then(() => {
-      this.service.index().then(i => this.router.navigateByUrl('/app/books'));
+      this.service.index().then(i => this.router.navigateByUrl('/books'));
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
     });

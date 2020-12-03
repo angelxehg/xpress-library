@@ -90,7 +90,7 @@ export class AuthorDetailsComponent implements OnInit, OnDestroy {
   save(): void {
     if (this.newMode) {
       this.service.create(this.author).then(author => {
-        this.service.index().then(i => this.router.navigateByUrl(`/app/authors/${author._id}`));
+        this.service.index().then(i => this.router.navigateByUrl(`/authors/${author._id}`));
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
       });
@@ -107,7 +107,7 @@ export class AuthorDetailsComponent implements OnInit, OnDestroy {
 
   delete(): void {
     this.service.delete(this.author).then(() => {
-      this.service.index().then(i => this.router.navigateByUrl('/app/authors'));
+      this.service.index().then(i => this.router.navigateByUrl('/authors'));
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
     });
