@@ -2,6 +2,10 @@
 
 Autores y Libros: Aplicación Web con Express, Angular y MongoDB
 
+Demo:
+
+[![](http://img.youtube.com/vi/Rp8aoFRsNA0/0.jpg)](http://www.youtube.com/watch?v=Rp8aoFRsNA0 "")
+
 [Aplicación Web](https://library.angelxehg.com/)
 
 [Repositorio API](./backend/README.md)
