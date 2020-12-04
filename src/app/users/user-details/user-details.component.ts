@@ -72,7 +72,6 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     this.ready = false;
     if (this.newMode) {
       this.service.create(this.user).then(user => {
-        console.log('created');
         this.service.index().then(i => this.router.navigateByUrl(`/users/${user._id}`));
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
@@ -83,7 +82,6 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       this.service.update(this.user).then(user => {
         this.editMode = false;
         this.user = user;
-        console.log('updated');
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
       }).finally(() => {
