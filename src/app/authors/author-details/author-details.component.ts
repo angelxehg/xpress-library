@@ -18,6 +18,8 @@ interface ProcessStatus {
 })
 export class AuthorDetailsComponent implements OnInit, OnDestroy {
 
+  ready = true;
+
   statusMsg: ProcessStatus;
 
   faEdit = faEdit;
@@ -61,9 +63,9 @@ export class AuthorDetailsComponent implements OnInit, OnDestroy {
 
   statusText(): string {
     if (!this.statusMsg) {
-      return '';
+      return 'alert alert-dark';
     }
-    return `text-${this.statusMsg.status}`;
+    return `alert alert-${this.statusMsg.status}`;
   }
 
   ngOnInit(): void {
@@ -88,11 +90,14 @@ export class AuthorDetailsComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
+    this.ready = false;
     if (this.newMode) {
       this.service.create(this.author).then(author => {
         this.service.index().then(i => this.router.navigateByUrl(`/authors/${author._id}`));
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
+      }).finally(() => {
+        this.ready = true;
       });
     } else {
       this.service.update(this.author).then(author => {
@@ -101,31 +106,42 @@ export class AuthorDetailsComponent implements OnInit, OnDestroy {
         this.service.index().then();
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
+      }).finally(() => {
+        this.ready = true;
       });
     }
   }
 
   delete(): void {
+    this.ready = false;
     this.service.delete(this.author).then(() => {
       this.service.index().then(i => this.router.navigateByUrl('/authors'));
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
     });
   }
 
   linkBook(book: string): void {
+    this.ready = false;
     this.service.linkBook(this.authorID, book).then(() => {
       this.sync();
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
     });
   }
 
   removeBook(book: string): void {
+    this.ready = false;
     this.service.removeBook(this.authorID, book).then(() => {
       this.sync();
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
     });
   }
 

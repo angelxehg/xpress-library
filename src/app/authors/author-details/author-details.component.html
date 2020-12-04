@@ -6,32 +6,38 @@
       </div>
       <div class="col-auto" *ngIf="admin()">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-primary" (click)="sync()">
+          <button *ngIf="!editMode" [disabled]="!ready" type="button" class="btn btn-sm btn-primary" (click)="sync()">
             <fa-icon [icon]="faSync"></fa-icon>
           </button>
-          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-secondary" (click)="editMode = true">
+          <button *ngIf="!editMode" [disabled]="!ready" type="button" class="btn btn-sm btn-secondary"
+            (click)="editMode = true">
             <fa-icon [icon]="faEdit"></fa-icon>
           </button>
-          <button *ngIf="editMode" type="button" class="btn btn-sm btn-success" (click)="save()">
+          <button *ngIf="editMode" [disabled]="!ready" type="button" class="btn btn-sm btn-success" (click)="save()">
             <fa-icon [icon]="faSave"></fa-icon>
           </button>
-          <button *ngIf="editMode && !newMode" type="button" class="btn btn-sm btn-warning" (click)="editMode = false">
+          <button *ngIf="editMode && !newMode" [disabled]="!ready" type="button" class="btn btn-sm btn-warning"
+            (click)="editMode = false">
             <fa-icon [icon]="faTimes"></fa-icon>
           </button>
-          <button *ngIf="editMode && !newMode" type="button" class="btn btn-sm btn-danger" (click)="delete()">
+          <button *ngIf="editMode && !newMode" [disabled]="!ready" type="button" class="btn btn-sm btn-danger"
+            (click)="delete()">
             <fa-icon [icon]="faTrash"></fa-icon>
           </button>
         </div>
       </div>
     </div>
-    <p *ngIf="statusMsg" class="mess" [class]="statusText()">{{ statusMsg.message }}</p>
+    <div *ngIf="statusMsg" [class]="statusText()" role="alert">
+      {{ statusMsg.message }}
+    </div>
     <div class="mb-3">
       <label for="inputName" class="form-label">Nombre</label>
-      <input [(ngModel)]="author.name" [disabled]="!editMode" type="text" class="form-control" id="inputName">
+      <input [(ngModel)]="author.name" [disabled]="!editMode || !ready" type="text" class="form-control" id="inputName">
     </div>
     <div class="mb-3">
       <label for="inputCountry" class="form-label">País</label>
-      <input [(ngModel)]="author.country" [disabled]="!editMode" type="text" class="form-control" id="inputCountry">
+      <input [(ngModel)]="author.country" [disabled]="!editMode || !ready" type="text" class="form-control"
+        id="inputCountry">
     </div>
   </div>
 </div>
@@ -44,12 +50,9 @@
       </div>
       <div class="col-auto" *ngIf="admin()">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button *ngIf="!editMode" type="button" class="btn btn-sm btn-primary" (click)="sync()">
-            <fa-icon [icon]="faSync"></fa-icon>
-          </button>
           <div class="dropdown">
             <button class="ml-2 btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-expanded="false">
+              data-toggle="dropdown" aria-expanded="false" [disabled]="!ready">
               <fa-icon [icon]="faLink"></fa-icon>
             </button>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -68,7 +71,8 @@
             <a [routerLink]="'/books/' + book._id">{{ book.title }}</a>
           </div>
           <div class="col-auto pl-0 pr-1" *ngIf="admin()">
-            <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeBook(book._id)">
+            <button type="button" class="btn btn-sm btn-outline-danger" [disabled]="!ready"
+              (click)="removeBook(book._id)">
               <fa-icon [icon]="faUnlink"></fa-icon>
             </button>
           </div>
