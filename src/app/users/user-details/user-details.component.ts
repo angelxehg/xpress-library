@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEdit, faSave, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
-import { User, UsersService } from '../users.service';
+import { AuthService } from '../../services/auth.service';
+import { User, UsersService } from '../../services/users.service';
 
 interface ProcessStatus {
   status: string;
@@ -16,6 +16,8 @@ interface ProcessStatus {
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
+
+  ready = true;
 
   statusMsg: ProcessStatus;
 
@@ -42,9 +44,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   statusText(): string {
     if (!this.statusMsg) {
-      return '';
+      return 'alert alert-dark';
     }
-    return `text-${this.statusMsg.status}`;
+    return `alert alert-${this.statusMsg.status}`;
   }
 
   ngOnInit(): void {
@@ -67,29 +69,35 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
+    this.ready = false;
     if (this.newMode) {
       this.service.create(this.user).then(user => {
-        console.log('created');
-        this.service.index().then(i => this.router.navigateByUrl(`/app/users/${user._id}`));
+        this.service.index().then(i => this.router.navigateByUrl(`/users/${user._id}`));
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
+      }).finally(() => {
+        this.ready = true;
       });
     } else {
       this.service.update(this.user).then(user => {
         this.editMode = false;
         this.user = user;
-        console.log('updated');
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
+      }).finally(() => {
+        this.ready = true;
       });
     }
   }
 
   delete(): void {
+    this.ready = false;
     this.service.delete(this.user).then(() => {
-      this.service.index().then(i => this.router.navigateByUrl('/app/users'));
+      this.service.index().then(i => this.router.navigateByUrl('/users'));
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
     });
   }
 

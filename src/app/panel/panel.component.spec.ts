@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthService, AuthServiceMock } from '../auth/auth.service';
+import { AuthService, AuthServiceMock } from '../services/auth.service';
 
 import { PanelComponent } from './panel.component';
 

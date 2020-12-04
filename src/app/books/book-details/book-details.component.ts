@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { faEdit, faSave, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Book, BooksService } from '../books.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { faEdit, faSave, faTimes, faTrash, faSync, faLink, faUnlink } from '@fortawesome/free-solid-svg-icons';
+import { Book, BooksService } from '../../services/books.service';
+import { AuthService } from '../../services/auth.service';
+import { Author, AuthorsService } from '../../services/authors.service';
 
 interface ProcessStatus {
   status: string;
@@ -17,14 +18,22 @@ interface ProcessStatus {
 })
 export class BookDetailsComponent implements OnInit, OnDestroy {
 
+  ready = true;
+
   statusMsg: ProcessStatus;
 
   faEdit = faEdit;
   faSave = faSave;
   faTimes = faTimes;
   faTrash = faTrash;
+  faSync = faSync;
+  faLink = faLink;
+  faUnlink = faUnlink;
 
+  bookId: string;
   book: Book;
+  authors: Author[];
+  availableAuthors: Author[];
 
   editMode = false;
   newMode = false;
@@ -34,17 +43,29 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private auth: AuthService,
     private service: BooksService,
+    private authorsService: AuthorsService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   admin = () => this.auth.admin();
 
+  sync(): void {
+    this.service.find(this.bookId).then(book => this.book = book);
+    this.service.indexAuthors(this.bookId).then(authors => {
+      this.authors = authors;
+      const allIds = authors.map(i => i._id);
+      this.authorsService.index().then(availableAuthors => {
+        this.availableAuthors = availableAuthors.filter(i => !allIds.includes(i._id));
+      });
+    });
+  }
+
   statusText(): string {
     if (!this.statusMsg) {
-      return '';
+      return 'alert alert-dark';
     }
-    return `text-${this.statusMsg.status}`;
+    return `alert alert-${this.statusMsg.status}`;
   }
 
   ngOnInit(): void {
@@ -52,7 +73,8 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
       if (params.id) {
         this.editMode = false;
         this.newMode = false;
-        this.service.find(params.id).then(book => this.book = book);
+        this.bookId = params.id;
+        this.sync();
       } else {
         this.editMode = true;
         this.newMode = true;
@@ -60,34 +82,64 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
           _id: 'new',
           title: ''
         };
+        this.authors = null;
       }
     });
   }
 
   save(): void {
+    this.ready = false;
     if (this.newMode) {
       this.service.create(this.book).then(book => {
-        console.log('created');
-        this.service.index().then(i => this.router.navigateByUrl(`/app/books/${book._id}`));
+        this.service.index().then(i => this.router.navigateByUrl(`/books/${book._id}`));
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
+      }).finally(() => {
+        this.ready = true;
       });
     } else {
       this.service.update(this.book).then(book => {
         this.editMode = false;
         this.book = book;
-        console.log('updated');
+        this.service.index().then();
       }).catch(err => {
         this.statusMsg = { status: 'danger', message: err.error.message };
+      }).finally(() => {
+        this.ready = true;
       });
     }
   }
 
   delete(): void {
+    this.ready = false;
     this.service.delete(this.book).then(() => {
-      this.service.index().then(i => this.router.navigateByUrl('/app/books'));
+      this.service.index().then(i => this.router.navigateByUrl('/books'));
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
+    });
+  }
+
+  linkAuthor(author: string): void {
+    this.ready = false;
+    this.service.linkAuthor(this.bookId, author).then(() => {
+      this.sync();
+    }).catch(err => {
+      this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
+    });
+  }
+
+  removeAuthor(author: string): void {
+    this.ready = false;
+    this.service.removeAuthor(this.bookId, author).then(() => {
+      this.sync();
+    }).catch(err => {
+      this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
     });
   }
 
@@ -96,5 +148,4 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
       this.paramSubscription.unsubscribe();
     }
   }
-
 }

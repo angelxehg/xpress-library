@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-5 col-lg-3 col-md-4 p-0 pl-2 pr-2">
-    <div class="card mb-2">
+    <div class="card text-white bg-dark mb-2">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col">
-            <h5 class="card-title m-0">Todos los libros</h5>
+            <h5 class="card-title m-0">Libros</h5>
           </div>
           <div class="col-auto">
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -20,8 +20,8 @@
       </div>
     </div>
     <ul class="list-group">
-      <a *ngFor="let item of items | async" class="list-group-item list-group-item-action" [routerLink]="item._id"
-        routerLinkActive="active">
+      <a *ngFor="let item of items | async" class="list-group-item list-group-item-action list-group-item-dark"
+        [routerLink]="item._id" routerLinkActive="active">
         {{ item.title }}
       </a>
     </ul>

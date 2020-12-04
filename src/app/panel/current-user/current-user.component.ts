@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/users/users.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from '../../services/users.service';
 
 @Component({
   selector: 'app-current-user',
   templateUrl: './current-user.component.html',
   styleUrls: ['./current-user.component.scss']
 })
-export class CurrentUserComponent implements OnInit, OnDestroy {
+export class CurrentUserComponent implements OnInit {
 
   user: User;
 
@@ -20,10 +20,6 @@ export class CurrentUserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user = this.auth.user();
-  }
-
-  ngOnDestroy(): void {
-    console.log('Destroy CurrentUser component');
   }
 
 }

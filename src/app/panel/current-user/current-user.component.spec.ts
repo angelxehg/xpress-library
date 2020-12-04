@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthService, AuthServiceMock } from 'src/app/auth/auth.service';
+import { AuthService, AuthServiceMock } from 'src/app/services/auth.service';
 
 import { CurrentUserComponent } from './current-user.component';
 

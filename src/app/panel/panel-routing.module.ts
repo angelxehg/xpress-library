@@ -23,13 +23,13 @@ const routes: Routes = [
       {
         path: 'me',
         component: CurrentUserComponent
-      }
+      },
+      {
+        path: '',
+        redirectTo: '/books',
+        pathMatch: 'full'
+      },
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/app/books',
-    pathMatch: 'full'
   },
 ];
 
