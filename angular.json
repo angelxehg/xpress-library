@@ -102,13 +102,6 @@
               "src/styles.scss"
             ],
             "scripts": []
-          },
-          "configurations": {
-            "ci": {
-              "watch": false,
-              "progress": false,
-              "browsers": "ChromeHeadlessCI"
-            }
           }
         },
         "lint": {
@@ -133,10 +126,6 @@
           "configurations": {
             "production": {
               "devServerTarget": "xpress-library:serve:production"
-            },
-            "ci": {
-              "devServerTarget": "xpress-library:serve",
-              "protractorConfig": "e2e/protractor-ci.conf.js"
             }
           }
         }
