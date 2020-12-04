@@ -1,15 +1,22 @@
 <app-central-card-layout>
-  <h5 class="card-title">Iniciar sesión</h5>
+  <h5 class="card-title">
+    <img src="assets/icon.png" style="max-width: 50px;">
+    <br />
+    Iniciar sesión
+  </h5>
   <div class="mb-3">
     <label for="inputEmail" class="form-label">Correo</label>
-    <input [(ngModel)]="credential.email" type="email" class="form-control" id="inputEmail"
+    <input [(ngModel)]="credential.email" [disabled]="!ready" type="email" class="form-control" id="inputEmail"
       aria-describedby="emailHelp">
   </div>
   <div class="mb-3">
     <label for="inputPassword" class="form-label">Contraseña</label>
-    <input [(ngModel)]="credential.password" type="password" class="form-control" id="inputPassword">
+    <input [(ngModel)]="credential.password" [disabled]="!ready" type="password" class="form-control"
+      id="inputPassword">
   </div>
-  <p *ngIf="statusMsg" class="mess" [class]="statusText()">{{ statusMsg.message }}</p>
-  <button class="btn btn-success" (click)="login()">Iniciar sesión</button>
+  <div *ngIf="statusMsg" [class]="statusText()" role="alert">
+    {{ statusMsg.message }}
+  </div>
+  <button class="btn btn-success" [disabled]="!ready" (click)="login()">Iniciar sesión</button>
   <a routerLink="/auth/register" class="mt-2">Registro</a>
 </app-central-card-layout>

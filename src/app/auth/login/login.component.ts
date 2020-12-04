@@ -14,6 +14,8 @@ interface ProcessStatus {
 })
 export class LoginComponent implements OnInit {
 
+  ready = true;
+
   statusMsg: ProcessStatus;
 
   credential: Credential = {
@@ -29,6 +31,7 @@ export class LoginComponent implements OnInit {
     const params = this.route.snapshot.queryParams;
     if (params.email) {
       this.credential.email = params.email;
+      this.statusMsg = { status: 'success', message: 'Cuenta creada. Inicie sesión' };
     }
   }
 
@@ -37,13 +40,14 @@ export class LoginComponent implements OnInit {
 
   statusText(): string {
     if (!this.statusMsg) {
-      return '';
+      return 'alert alert-dark';
     }
-    return `text-${this.statusMsg.status}`;
+    return `alert alert-${this.statusMsg.status}`;
   }
 
   login(): void {
     this.statusMsg = null;
+    this.ready = false;
     this.auth.login(this.credential).then(user => {
       this.statusMsg = { status: 'success', message: 'Inicio de sesión correcto' };
       setTimeout((router: Router) => {
@@ -51,6 +55,8 @@ export class LoginComponent implements OnInit {
       }, 1000, this.router);
     }).catch(err => {
       this.statusMsg = { status: 'danger', message: err.error.message };
+    }).finally(() => {
+      this.ready = true;
     });
   }
 

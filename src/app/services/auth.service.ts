@@ -22,6 +22,7 @@ export interface Credential {
   email: string;
   password: string;
   passwordConfirmation?: string;
+  image?: string;
 }
 
 interface TokenResponse {
